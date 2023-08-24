@@ -11,13 +11,13 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 2. CUDA-capable GPU is recommended for faster inference. Otherwise, the code will default to CPU.
 
-3. Download the `model_weights_final.pth` from this repository, which contains the model's trained weights.
+3. Download the `model_weights_final.pth` from https://shorturl.at/eJTU6, which contains the model's trained weights.
 
 ## Instructions:
 
 1. **Clone the Repository**:
     ```bash
-    git clone [YOUR_REPOSITORY_LINK]
+    git clone https://github.com/vedernikovphoto/Faster_RCNN
     cd [YOUR_REPOSITORY_DIRECTORY]
     ```
 
@@ -37,7 +37,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 4. **Run the Script**:
     ```bash
-    python [SCRIPT_NAME].py
+    python inference.py
     ```
 
 5. **View Results**:
