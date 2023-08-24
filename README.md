@@ -25,17 +25,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     - If it doesn't exist, create an `Inference` folder in the root directory of the cloned repository.
     - Place your desired image inside this `Inference` folder. For this guide, we'll refer to this image as `test.jpg`.
 
-3. **Modify Image Path**:
-    Open the provided script in an editor and modify the following line:
-    ```python
-    image_path = '../Inference/7.jpg'
-    ```
-    Change to:
-    ```python
-    image_path = './Inference/test.jpg'
-    ```
-
-4. **Run the Script**:
+3. **Run the Script**:
     ```bash
     python inference.py
     ```

@@ -34,7 +34,7 @@ model.load_state_dict(torch.load('model_weights_final.pth'))
 #########################################################################################################################
 
 # Load the image
-image_path = '../Inference/test.jpg'
+image_path = './Inference/test.jpg'
 image = Image.open(image_path)
 
 # Transform the image
