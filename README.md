@@ -13,6 +13,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 3. Download the `model_weights_final.pth` from https://shorturl.at/eJTU6, which contains the model's trained weights.
 
+4. Place downloaded `model_weights_final.pth` in the same folder with `inference.py` 
 ## Instructions:
 
 1. **Clone the Repository**:
@@ -30,8 +31,9 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     python inference.py
     ```
 
-5. **View Results**:
+4. **View Results**:
     Post execution, the image will be displayed with red outlined bounding boxes around detected objects.
 
 Thank you for using this model! Feel free to raise any issues or contribute.
+
 
