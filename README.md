@@ -1,5 +1,7 @@
 # Running Inference on a New Image with the Pre-trained Model
 
+![Alternative Text](example.jpg)
+
 Welcome to this repository! If you're eager to test the pre-trained model on your own image, follow the steps below:
 
 ## Prerequisites:
