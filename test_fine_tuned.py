@@ -56,8 +56,12 @@ data_loader_test = DataLoader(test_dataset, batch_size=2, shuffle=True, num_work
 #########################################################################################################################
 #########################################################################################################################
 
-# Load a pre-trained model
-model = fasterrcnn_resnet50_fpn(pretrained=True)
+# Load a pre-trained model without pretrained weights
+model = fasterrcnn_resnet50_fpn(pretrained=False)
+
+# Load your pretrained ResNet weights from a local path
+pretrained_weights_path = 'fasterrcnn_resnet50_fpn_coco.pth'
+model.load_state_dict(torch.load(pretrained_weights_path, map_location=device))
 
 # Replace the classifier with a new one, that has num_classes which is user-defined
 num_classes = 2  # 1 class (person) + background
