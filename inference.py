@@ -12,7 +12,9 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 # Load a pre-trained model
-model = fasterrcnn_resnet50_fpn(pretrained=True)
+model = fasterrcnn_resnet50_fpn(pretrained=False)
+# pretrained_weights_path = 'fasterrcnn_resnet50_fpn_coco.pth'
+# model.load_state_dict(torch.load(pretrained_weights_path, map_location=device))
 
 # Replace the classifier with a new one, that has num_classes which is user-defined
 num_classes = 2  # 1 class (person) + background
