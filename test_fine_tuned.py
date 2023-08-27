@@ -72,7 +72,7 @@ model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 model.to(device)
 
 # Load your trained model
-model.load_state_dict(torch.load('model_weights_final.pth'))
+model.load_state_dict(torch.load('model_weights_final.pth', map_location=device))
 
 # Make sure the model is in evaluation mode
 model.eval()
