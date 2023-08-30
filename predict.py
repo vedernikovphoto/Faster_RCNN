@@ -1,34 +1,13 @@
 import torch
 from tqdm import tqdm
 
-# import torchvision
-# import json
-# import numpy as np
-# import os
-# import random
-# import matplotlib.pyplot as plt
-# import matplotlib.patches as patches
-# import matplotlib.pyplot as plt
-# import torch.optim as optim
-# from torchvision.models.detection import fasterrcnn_resnet50_fpn
-# from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-# from PIL import Image
-# from torchvision.transforms.functional import to_tensor
-# from sklearn.metrics import jaccard_score
-# from torchvision import transforms
-# from torch.utils.data import DataLoader
-# from torchvision.transforms import functional as F
-# from dataset import *
-# from mytransforms import *
-# from show_sample import *
-# from train_one_epoch import *
-
-
-# define GPU
-device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 def predict(model, data_loader, score_threshold=0.8):
-    # This function uses the given model to make predictions on the provided data_loader 
+    """
+    Uses the given model to make predictions on the provided data_loader
+    """
+
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     # Set the model to evaluation mode
     model.eval()
@@ -40,7 +19,6 @@ def predict(model, data_loader, score_threshold=0.8):
 
     # Disable gradient calculation because we are in the testing mode
     with torch.no_grad():
-        
         
         # Iterate over each batch of data in the data loader
         for (image, targets) in tqdm(data_loader):
@@ -65,5 +43,4 @@ def predict(model, data_loader, score_threshold=0.8):
             # Store the ground truth data
             ground_truths.extend(targets)
             
-    # Return the predictions, images and ground truths
     return predictions, images, ground_truths

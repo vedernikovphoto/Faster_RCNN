@@ -1,28 +1,11 @@
-# import torch
 import torchvision
-# import json
-import numpy as np
-# import os
 import random
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import matplotlib.pyplot as plt
-# import torch.optim as optim
-
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-# from PIL import Image
-# from torchvision.transforms.functional import to_tensor
-# from sklearn.metrics import jaccard_score
-# from torchvision import transforms
 from torch.utils.data import DataLoader
-# from torchvision.transforms import functional as F
-from tqdm import tqdm
-
 from dataset import *
 from mytransforms import *
 from show_sample import *
-# from train_one_epoch import *
 from predict import *
 from test_one_epoch import *
 
@@ -38,23 +21,7 @@ test_dataset = MyDataset(root='D:\\Object detection\\CrowdHuman_val\\Images',
 data_loader_test = DataLoader(test_dataset, batch_size=2, shuffle=True, num_workers=0, collate_fn=lambda x: tuple(zip(*x)))
 
 
-# Display some random test samples
-# Select a random subset of the test data to display
-# num_samples = 5
-# total_samples = 20
-# random_indices = random.sample(range(total_samples), num_samples)
 
-# # Print some samples
-# for i in random_indices:  # adjust this to see more/fewer images
-#     sample = test_dataset[i]
-#     print(f"Sample #{i}:")
-# #     print(f"Image shape: {sample[0].size}")
-# #     print(f"Targets: {sample[1]}")
-#     show_sample(sample)
-
-
-#########################################################################################################################
-#########################################################################################################################
 
 # Load a pre-trained model without pretrained weights
 model = fasterrcnn_resnet50_fpn(pretrained=False)

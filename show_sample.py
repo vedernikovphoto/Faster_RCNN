@@ -2,8 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.patches as patches
 
-# Function to display sample from dataset
+
 def show_sample(sample):
+    """
+    Plots sample from dataset
+    """
 
     # Unpack the sample into the image and target dictionary
     img, target = sample
@@ -27,11 +30,12 @@ def show_sample(sample):
         ax.add_patch(rect)
     plt.show()
 
-#########################################################################################################################
-#########################################################################################################################
 
 def plot_image_with_boxes(image, gt_boxes, pred_boxes):
-    # Function to plot an image with both ground truth and predicted bounding boxes
+    """
+    Plots an image with both ground truth and predicted bounding boxes
+    """
+
     fig, ax = plt.subplots(1, dpi=96)
     # Display the image
     ax.imshow(image)
@@ -48,10 +52,12 @@ def plot_image_with_boxes(image, gt_boxes, pred_boxes):
 
     plt.show()
 
-#########################################################################################################################
-#########################################################################################################################
 
 def plot_image_with_all_boxes(image, gt_boxes, pred_boxes, raw_pred_boxes):
+    """
+    Plots image with all three types of bounding boxes
+    """
+
     fig, ax = plt.subplots(1, dpi=96)
     ax.imshow(image)
 

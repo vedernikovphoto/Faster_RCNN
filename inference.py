@@ -57,4 +57,4 @@ def model_inference(model, device):
 
 if __name__ == "__main__":
     resnet_50, device = init_resnet_50()
-    model_inference(resnet_50,device)
+    model_inference(resnet_50, device)

@@ -5,8 +5,8 @@ from PIL import Image
 
 class MyDataset(torch.utils.data.Dataset):
     
-    # Initialize dataset
     def __init__(self, root, annotations_file, transforms=None):
+
         self.root = root  # Path to the images
         self.transforms = transforms  # Image transformations
         
@@ -44,13 +44,8 @@ class MyDataset(torch.utils.data.Dataset):
 
             self.boxes.append(boxes)  # Append the bounding boxes for the current image to the list of all bounding boxes
             self.labels.append(labels)  # Append the labels for the current image to the list of all labels
-            
-
-#########################################################################################################################     
-#########################################################################################################################     
 
 
-    # Method to get dataset item at a particular index
     def __getitem__(self, idx):
         
         # Load images and bounding boxes
@@ -64,8 +59,7 @@ class MyDataset(torch.utils.data.Dataset):
         num_objs = len(box_list)  
 
         # Convert the labels for the image at the given index to a PyTorch tensor with int64 data type
-        labels = torch.as_tensor(self.labels[idx], dtype=torch.int64)  
-        
+        labels = torch.as_tensor(self.labels[idx], dtype=torch.int64)
         
         # Create a dictionary to store the details of the target object(s) in the current image
         target = {}
@@ -80,10 +74,5 @@ class MyDataset(torch.utils.data.Dataset):
         return img, target
 
 
-#########################################################################################################################     
-#########################################################################################################################     
-
-
-    # Method to get length of the dataset
     def __len__(self):
         return len(self.imgs)
