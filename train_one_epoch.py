@@ -1,5 +1,3 @@
-
-
 def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
     model.train()  # Set the model to training mode
     losses = []  # List to store loss values
@@ -23,4 +21,5 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
         sum(loss_dict.values()).backward()  # Compute the gradient
         optimizer.step()  # Update the model parameters
 
-    return sum(losses) / len(losses)  # Return the average loss over the epoch
+    # Return the average loss over the epoch
+    return sum(losses) / len(losses)  

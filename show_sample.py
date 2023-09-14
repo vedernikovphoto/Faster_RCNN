@@ -80,3 +80,15 @@ def plot_image_with_all_boxes(image, gt_boxes, pred_boxes, raw_pred_boxes):
         ax.add_patch(rect)
 
     plt.show()
+
+
+def plot_loss(loss_values):
+
+    plt.figure(figsize=(10, 5), dpi=300)
+    plt.title("Training Loss per Epoch")
+    plt.plot(loss_values)
+    plt.xlabel("Epochs")
+    plt.ylabel("Loss")
+    plt.tick_params(direction='in')
+    plt.grid()
+    plt.show()
