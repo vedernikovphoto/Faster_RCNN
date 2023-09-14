@@ -27,4 +27,5 @@ class MyTransforms:
         boxes = target["boxes"]
         boxes[..., [0, 2]] = width - boxes[..., [2, 0]]  # Swap x_min and x_max
         target["boxes"] = boxes
+
         return target
