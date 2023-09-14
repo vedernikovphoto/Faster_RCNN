@@ -1,29 +1,9 @@
-# Step 0: Import necessary libraries and modules
-# import torchvision
-# import json
-# import os
-# import random
-# import matplotlib.pyplot as plt
-# import matplotlib.patches as patches
-# import matplotlib.pyplot as plt
-# import torch.optim as optim
-#
-# from torchvision.models.detection import fasterrcnn_resnet50_fpn
-# from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-# from PIL import Image
-# from torchvision.transforms.functional import to_tensor
-# from sklearn.metrics import jaccard_score
-# from torchvision import transforms
-# from torch.utils.data import DataLoader
-# from torchvision.transforms import functional as F
-
 from tqdm import tqdm
-import numpy as np
 import torch
 
 
 def test_one_epoch(model, data_loader, device):
-    # Set the model to evaluation mode
+
     model.eval()
 
     # List to hold the IoUs of each prediction with the ground truth
@@ -64,11 +44,8 @@ def test_one_epoch(model, data_loader, device):
     # Return the average IoU
     return sum(ious) / len(ious)
 
-#########################################################################################################################
-#########################################################################################################################
 
 def calculate_iou(pred_box, gt_box):
-    # This function calculates the Intersection over Union (IoU) of two bounding boxes.
 
     # Determine the coordinates of the intersection rectangle
     x1 = max(pred_box[0], gt_box[0])
@@ -91,4 +68,5 @@ def calculate_iou(pred_box, gt_box):
 
     # Calculate the IoU
     iou = area_overlap / (area_combined + 1e-6)
+
     return iou
