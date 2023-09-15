@@ -22,4 +22,4 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
         optimizer.step()  # Update the model parameters
 
     # Return the average loss over the epoch
-    return sum(losses) / len(losses)  
+    return sum(losses) / len(losses)

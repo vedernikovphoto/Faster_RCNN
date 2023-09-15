@@ -17,7 +17,6 @@ class MyTransforms:
 
         return image, target
 
-
     @staticmethod
     def flip_boxes(image, target):
         """

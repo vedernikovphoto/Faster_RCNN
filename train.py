@@ -10,6 +10,21 @@ from train_one_epoch import *
 
 
 def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay=0.0005, step_size=3, gamma=0.1):
+    """
+    Trains the model using the specified parameters and returns the loss values recorded during training.
+
+    Args:
+        num_epochs (int): Number of epochs for training.
+        batch_size (int): Size of the batches during training.
+        lr (float): Learning rate.
+        momentum (float): Momentum for the optimizer.
+        weight_decay (float): Weight decay for the optimizer.
+        step_size (int): Step size for the learning rate scheduler.
+        gamma (float): Gamma for the learning rate scheduler.
+
+    Returns:
+        list: A list of loss values recorded during training.
+    """
 
     # Use custom dataset and transformations
     dataset = MyDataset(root='D:\\Object detection\\CrowdHuman_train01\\Images',
@@ -17,7 +32,11 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
                         transforms=MyTransforms(train=True))
 
     # Define DataLoader for training data
-    data_loader_train = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=0, collate_fn=lambda x: tuple(zip(*x)))
+    data_loader_train = DataLoader(dataset,
+                                   batch_size=batch_size,
+                                   shuffle=True,
+                                   num_workers=0,
+                                   collate_fn=lambda x: tuple(zip(*x)))
 
     # Define the device to use for computation
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
