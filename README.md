@@ -8,9 +8,10 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 ## Prerequisites:
 
-1. Ensure you have the necessary libraries. Install them with:
+1. Ensure you have a Python environment with the necessary libraries installed. You can install them by using the following command:
+
     ```bash
-    pip install torch torchvision pillow matplotlib
+    pip install -r requirements.txt
     ```
 
 2. CUDA-capable GPU is recommended for faster inference. Otherwise, the code will default to CPU.
