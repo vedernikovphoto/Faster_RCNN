@@ -14,7 +14,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     - `numpy==1.23.4`
     - `Pillow==10.0.0`
     - `scikit-learn==1.1.3`
-    - `torch==1.13.0`
+    - `torch>=1.13.1`
     - `torchvision==0.14.0`
     - `tqdm==4.64.1`
 
