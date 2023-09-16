@@ -29,7 +29,8 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 4. Rename downloaded weights file to `fasterrcnn_resnet50_fpn_coco.pth` and place the it in the same folder with `inference.py` -->
 
-3. Download the `model_weights_final.pth` for fine-tuned model from https://shorturl.at/eJTU6, which contains the model's trained weights.
+
+3. Download the [`model_weights_final.pth`](https://shorturl.at/eJTU6) for the fine-tuned model, which contains the model's trained weights.
 
 4. Place downloaded `model_weights_final.pth` in the same folder with `inference.py` 
 
