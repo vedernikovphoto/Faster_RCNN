@@ -27,9 +27,8 @@ def init_resnet_50():
     return model, device
 
 
-def model_inference(model, device):
+def model_inference(model, device, image_path):
 
-    image_path = './Inference/test.jpg'
     image = Image.open(image_path)
 
     image_tensor = to_tensor(image).unsqueeze(0).to(device)  # Transform the image
@@ -51,5 +50,8 @@ def model_inference(model, device):
 
 
 if __name__ == "__main__":
+    image_path = './Inference/test.jpg'
     resnet_50, device = init_resnet_50()
-    model_inference(resnet_50, device)
+    model_inference(model=resnet_50,
+                    device=device,
+                    image_path=image_path)
