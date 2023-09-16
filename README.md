@@ -17,8 +17,8 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     - `torch==1.13.0`
     - `torchvision==0.14.0`
     - `tqdm==4.64.1`
-   
-You can install them by using the following command:
+
+   You can install them by using the following command:
     ```bash
     pip install -r requirements.txt
     ```
