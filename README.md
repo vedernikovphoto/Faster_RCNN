@@ -8,7 +8,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 ## Prerequisites:
 
-1. Ensure you have a Python environment with the necessary libraries installed. You can install them by using the following command:
+1. Ensure you have a Python environment with the necessary libraries installed. The required libraries and their respective versions are listed below:
 
     - `matplotlib==3.6.2`
     - `numpy==1.23.4`
@@ -18,6 +18,8 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     - `torchvision==0.14.0`
     - `tqdm==4.64.1`
    
+You can install them by using the following command:
+
     ```bash
     pip install -r requirements.txt
     ```
