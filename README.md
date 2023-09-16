@@ -19,7 +19,6 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     - `tqdm==4.64.1`
    
 You can install them by using the following command:
-
     ```bash
     pip install -r requirements.txt
     ```
