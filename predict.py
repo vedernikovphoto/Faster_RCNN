@@ -8,25 +8,17 @@ def predict(model, data_loader, score_threshold=0.8):
     """
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-
-    # Set the model to evaluation mode
     model.eval()
     
-    # Initialize lists to store the predictions, the images, the ground truth data and the indices.
     predictions = []
     images = []
     ground_truths = []
 
-    # Disable gradient calculation because we are in the testing mode
-    with torch.no_grad():
+    with torch.no_grad():  # Disable gradient calculation because we are in the testing mode
         
-        # Iterate over each batch of data in the data loader
         for (image, targets) in tqdm(data_loader):
             
-            # Move the images to the device (GPU or CPU) that the model is on
-            image = list(img.to(device) for img in image)
-            
-            # Use the model to predict the targets from the images
+            image = list(img.to(device) for img in image)  # Move images to device (GPU or CPU) that the model is on
             prediction = model(image)
             
             # Apply a threshold to the scores

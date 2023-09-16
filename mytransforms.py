@@ -8,9 +8,8 @@ class MyTransforms:
         self.train = train
     
     def __call__(self, image, target):
-        image = F.to_tensor(image)  # Convert the image to a PyTorch tensor
+        image = F.to_tensor(image)
 
-        # Apply horizontal flip for training images
         if self.train:
             image = F.hflip(image)  # Apply a horizontal flip to the image
             target = self.flip_boxes(image, target)   # Adjust the bounding boxes of the target according to the flip

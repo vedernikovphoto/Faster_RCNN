@@ -37,28 +37,23 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-    # Load a pre-trained model
-    model = fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.COCO_V1)
+    model = fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.COCO_V1)  # Load a pre-trained model
 
     num_classes = 2  # 1 class (person) + background
 
-    # Get the number of input features for the classifier
-    in_features = model.roi_heads.box_predictor.cls_score.in_features
+    in_features = model.roi_heads.box_predictor.cls_score.in_features  # Number of input features for the classifier
 
     # Replace the pre-trained head with a new one
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
-
     model.to(device)
 
-    # Construct an optimizer
+    # Construct an optimizer and scheduler
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = optim.SGD(params, lr=lr, momentum=momentum, weight_decay=weight_decay)
-
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=step_size, gamma=gamma)
 
     loss_values = []
 
-    # Train the model
     for epoch in range(num_epochs):
         epoch_loss = train_one_epoch(model, optimizer, data_loader_train, device, epoch, print_freq=4)
         loss_values.append(epoch_loss)
@@ -90,8 +85,9 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
     losses = []
 
     for step, (images, targets) in enumerate(data_loader):
-        images = list(image.to(device) for image in images)  # Move images to the specified device
-        targets = [{k: v.to(device) for k, v in t.items()} for t in targets]  # Move targets to the specified device
+        # Move images and targets to the specified device
+        images = list(image.to(device) for image in images)
+        targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
         loss_dict = model(images, targets)
 

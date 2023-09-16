@@ -10,28 +10,6 @@ from predict import *
 from test_one_epoch import *
 
 
-def get_device():
-    """Returns the CUDA device if available, else returns the CPU device."""
-    return torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-
-
-def get_test_dataset():
-    """Returns a dataset instance with specified root, annotations file, and transforms."""
-    return MyDataset(
-        root='D:\\Object detection\\CrowdHuman_val\\Images',
-        annotations_file='D:\\Object detection\\annotation_val.odgt',
-        transforms=MyTransforms(train=False)
-    )
-
-
-def get_data_loader_test(test_dataset):
-    """
-    Returns a data loader for the test dataset with specified batch size, shuffle status,
-    number of workers, and collate function.
-    """
-    return DataLoader(test_dataset, batch_size=2, shuffle=True, num_workers=0, collate_fn=lambda x: tuple(zip(*x)))
-
-
 def get_model(num_classes, pretrained_weights_path, device):
     """
     Returns a Faster R-CNN model with a ResNet-50 backbone and FPN. The model is initialized with custom pre-trained
@@ -45,46 +23,32 @@ def get_model(num_classes, pretrained_weights_path, device):
     Returns:
     model (torch.nn.Module): The configured model.
     """
-    # Load a pre-trained model without pretrained weights
-    model = fasterrcnn_resnet50_fpn(weights=None)
 
-    # Load your pretrained ResNet weights from a local path
-    model.load_state_dict(torch.load(pretrained_weights_path, map_location=device))
+    model = fasterrcnn_resnet50_fpn(weights=None)  # Load a pre-trained model without pretrained weights
+    model.load_state_dict(torch.load(pretrained_weights_path, map_location=device))  # Load pretrained ResNet weights
 
     # Get the number of input features for the classifier
     in_features = model.roi_heads.box_predictor.cls_score.in_features
 
     # Replace the pre-trained head with a new one
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
-
-    # Move model to the right device
     model.to(device)
 
     return model
 
 
-def load_trained_model(model, trained_weights_path, device):
-    """Loads the trained weights into the model and returns the model.
-
-    Args:
-        model (torch.nn.Module): The model into which the weights will be loaded.
-        trained_weights_path (str): The path to the trained weights file.
-        device (torch.device): The device to which the model will be moved.
-
-    Returns:
-        torch.nn.Module: The model with the loaded weights.
-    """
-    model.load_state_dict(torch.load(trained_weights_path, map_location=device))
-    return model
-
-
 def main():
     """Main function to execute the model training and prediction process."""
-    device = get_device()
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     # Create a Dataset and Dataloader for test data
-    test_dataset = get_test_dataset()
-    data_loader_test = get_data_loader_test(test_dataset)
+    test_dataset = MyDataset(root='D:\\Object detection\\CrowdHuman_val\\Images',
+                             annotations_file='D:\\Object detection\\annotation_val.odgt',
+                             transforms=MyTransforms(train=False))
+
+    data_loader_test = DataLoader(test_dataset, batch_size=2,
+                                  shuffle=True, num_workers=0,
+                                  collate_fn=lambda x: tuple(zip(*x)))
 
     # Number of classes and pre-trained weights path
     num_classes = 2  # 1 class (person) + background
@@ -92,7 +56,7 @@ def main():
 
     # Initialize and setup model
     model = get_model(num_classes, pretrained_weights_path, device)
-    model = load_trained_model(model, 'model_weights_final.pth', device)
+    model.load_state_dict(torch.load('model_weights_final.pth', map_location=device))
     model.eval()
 
     # Set seeds for reproducibility
