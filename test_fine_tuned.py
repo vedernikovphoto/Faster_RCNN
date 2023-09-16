@@ -54,7 +54,9 @@ def main():
     pretrained_weights_path = 'fasterrcnn_resnet50_fpn_coco.pth'
 
     # Initialize and setup model
-    model = get_model(num_classes, pretrained_weights_path, device)
+    model = get_model(num_classes=num_classes,
+                      pretrained_weights_path=pretrained_weights_path,
+                      device=device)
     model.load_state_dict(torch.load('model_weights_final.pth', map_location=device))
     model.eval()
 
