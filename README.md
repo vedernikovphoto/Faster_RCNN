@@ -25,14 +25,14 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 2. While not compulsory, a CUDA-capable GPU is recommended for faster inference. Without a GPU, the code will default to running on the CPU which will be slower.
 
-<!--3. Download the weights for `fasterrcnn_resnet50_fpn` model from https://shorturl.at/hvHPW 
-
-4. Rename downloaded weights file to `fasterrcnn_resnet50_fpn_coco.pth` and place the it in the same folder with `inference.py` -->
-
-
 3. Download the [`model_weights_final.pth`](https://shorturl.at/eJTU6) for the fine-tuned model, which contains the model's trained weights.
 
-4. Place downloaded `model_weights_final.pth` in the same folder with `inference.py` 
+4. Place downloaded `model_weights_final.pth` in the same folder with `inference.py`
+
+5. Download the weights for [`fasterrcnn_resnet50_fpn`](https://shorturl.at/hvHPW) model 
+
+6. Rename downloaded weights file to `fasterrcnn_resnet50_fpn_coco.pth` and place the it in the same folder with `inference.py` -->
+
 
 ## Instructions:
 
