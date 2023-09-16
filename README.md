@@ -10,11 +10,19 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 1. Ensure you have a Python environment with the necessary libraries installed. You can install them by using the following command:
 
+    - `matplotlib==3.6.2`: A library for creating static, animated, and interactive visualizations in Python.
+    - `numpy==1.23.4`: A library used for mathematical operations and handling arrays in Python.
+    - `Pillow==10.0.0`: A library that adds support for opening, manipulating, and saving many different formats of image files.
+    - `scikit-learn==1.1.3`: A machine learning library in Python, built on NumPy, SciPy, and matplotlib.
+    - `torch==1.13.0`: An open-source machine learning library, a scientific computing framework, and a script language based on Python.
+    - `torchvision==0.14.0`: A package that provides datasets, models, and transforms for computer vision.
+    - `tqdm==4.64.1`: A library to display progress bars in Python.
+   
     ```bash
     pip install -r requirements.txt
     ```
 
-2. CUDA-capable GPU is recommended for faster inference. Otherwise, the code will default to CPU.
+2. While not compulsory, a CUDA-capable GPU is recommended for faster inference. Without a GPU, the code will default to running on the CPU which will be slower.
 
 <!--3. Download the weights for `fasterrcnn_resnet50_fpn` model from https://shorturl.at/hvHPW 
 
