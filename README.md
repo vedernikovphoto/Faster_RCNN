@@ -31,7 +31,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 5. Download the weights for [`fasterrcnn_resnet50_fpn`](https://shorturl.at/hvHPW) model 
 
-6. Rename downloaded weights file to `fasterrcnn_resnet50_fpn_coco.pth` and place the it in the same folder with `inference.py` -->
+6. Rename downloaded weights file to `fasterrcnn_resnet50_fpn_coco.pth` and place the it in the same folder with `inference.py` file.
 
 
 ## Instructions:
