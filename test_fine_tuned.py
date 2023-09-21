@@ -1,4 +1,5 @@
 import torch
+import argparse
 import torchvision
 import numpy as np
 from tqdm import tqdm
@@ -14,7 +15,7 @@ from predict import predict
 
 def get_model(num_classes, pretrained_weights_path, device):
     """
-    Returns a Faster R-CNN model with a ResNet-50 backbone and FPN. The model is initialized with custom pre-trained
+    Return a Faster R-CNN model with a ResNet-50 backbone and FPN.. The model is initialized with custom pre-trained
     weights and the number of output classes is set to num_classes.
 
     Args:
@@ -39,13 +40,13 @@ def get_model(num_classes, pretrained_weights_path, device):
     return model
 
 
-def main():
-    """Main function to execute the model training and prediction process."""
+def main(root=None, annotations_file=None, pretrained_weights_path=None, model_weights_final=None):
+    """Execute the model training and prediction process."""
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     # Create a Dataset and Dataloader for test data
-    test_dataset = MyDataset(root='D:\\Object detection\\CrowdHuman_val\\Images',
-                             annotations_file='D:\\Object detection\\annotation_val.odgt',
+    test_dataset = MyDataset(root=root,
+                             annotations_file=annotations_file,
                              transforms=MyTransforms(train=False))
 
     data_loader_test = DataLoader(test_dataset, batch_size=2,
@@ -54,13 +55,13 @@ def main():
 
     # Number of classes and pre-trained weights path
     num_classes = 2  # 1 class (person) + background
-    pretrained_weights_path = 'fasterrcnn_resnet50_fpn_coco.pth'
+    pretrained_weights_path = pretrained_weights_path
 
     # Initialize and setup model
     model = get_model(num_classes=num_classes,
                       pretrained_weights_path=pretrained_weights_path,
                       device=device)
-    model.load_state_dict(torch.load('model_weights_final.pth', map_location=device))
+    model.load_state_dict(torch.load(model_weights_final, map_location=device))
     model.eval()
 
     # Set seeds for reproducibility
@@ -97,7 +98,7 @@ def main():
 
 
 def calculate_performance(model, data_loader_test, device, model_description):
-    """Calculate the performance of a given model on the test data loader."""
+    """Calculate the performance of a given model using the test data loader."""
     print(f'\nCalculating the performance of {model_description}: ')
 
     # Calculate the average IoU on the test data using the provided model
@@ -146,7 +147,7 @@ def test_one_epoch(model, data_loader, device):
 
 def calculate_iou(pred_box, gt_box):
 
-    # Determine the coordinates of the intersection rectangle
+    # Determine the coordinates of the intersecting rectangle.
     x1 = max(pred_box[0], gt_box[0])
     y1 = max(pred_box[1], gt_box[1])
     x2 = min(pred_box[2], gt_box[2])
@@ -171,5 +172,25 @@ def calculate_iou(pred_box, gt_box):
     return iou
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    # Define the argument parser
+    parser = argparse.ArgumentParser(description="Test fine-tuned object detection model.")
+
+    # Adding arguments for the main function
+    parser.add_argument('--root', type=str, default='D:\\Object detection\\CrowdHuman_val\\Images',
+                        help='Root path for validation images.')
+    parser.add_argument('--annotations_file', type=str, default='D:\\Object detection\\annotation_val.odgt',
+                        help='Path to validation annotations file.')
+    parser.add_argument('--pretrained_weights_path', type=str, default='fasterrcnn_resnet50_fpn_coco.pth',
+                        help='Name of the .pth file containing pre-trained weights.')
+    parser.add_argument('--model_weights_final', type=str, default='model_weights_final.pth',
+                        help='Name of the .pth file containing fine-tuned weights.')
+
+    args = parser.parse_args()
+
+    # Using the parsed arguments in the main function
+    main(root=args.root,
+         annotations_file=args.annotations_file,
+         pretrained_weights_path=args.pretrained_weights_path,
+         model_weights_final=args.model_weights_final
+         )
