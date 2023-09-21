@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw
 import torch
+import argparse
 import matplotlib.pyplot as plt
 from torchvision.transforms.functional import to_tensor
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
@@ -10,9 +11,9 @@ def init_resnet_50():
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-    model = fasterrcnn_resnet50_fpn(weights=None)  # Load a pre-trained model
+    model = fasterrcnn_resnet50_fpn(weights=None)  # Initialize the model without pre-trained weights
 
-    # Replace the classifier with a new one, that has user-defined number of classes
+    # Replace the classifier with a new one that has a user-defined number of classes
     num_classes = 2  # 1 class (person) + background
 
     # Get the number of input features for the classifier
@@ -31,7 +32,7 @@ def model_inference(model, device, image_path):
 
     image = Image.open(image_path)
 
-    image_tensor = to_tensor(image).unsqueeze(0).to(device)  # Transform the image
+    image_tensor = to_tensor(image).unsqueeze(0).to(device)  # Convert the image to a tensor
 
     # Perform inference
     model.eval()
@@ -50,8 +51,18 @@ def model_inference(model, device, image_path):
 
 
 if __name__ == "__main__":
-    image_path = './Inference/test.jpg'
+    # Define the argument parser
+    parser = argparse.ArgumentParser(description="Perform inference using an object detection model.")
+
+    # Adding arguments for the model_inference function
+    parser.add_argument('--image_path', type=str, default='./Inference/test.jpg',
+                        help='Path to the image on which to perform inference.')
+
+
+    args = parser.parse_args()
+
+    # Using the parsed arguments in the model_inference function
     resnet_50, device = init_resnet_50()
     model_inference(model=resnet_50,
                     device=device,
-                    image_path=image_path)
+                    image_path=args.image_path)
