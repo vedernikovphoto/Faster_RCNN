@@ -1,4 +1,5 @@
 import torch
+import argparse
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
@@ -9,7 +10,8 @@ from mytransforms import MyTransforms
 from show_sample import plot_loss
 
 
-def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay=0.0005, step_size=3, gamma=0.1):
+def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay=0.0005,
+                step_size=3, gamma=0.1, root=None, annotations_file=None, model_save_path=None):
     """
     Trains the model using the specified parameters and returns the loss values recorded during training.
 
@@ -21,13 +23,16 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
         weight_decay (float): Weight decay for the optimizer.
         step_size (int): Step size for the learning rate scheduler.
         gamma (float): Gamma for the learning rate scheduler.
+        root (str, optional): Root path for images. Defaults to None.
+        annotations_file (str, optional): Path to annotations file. Defaults to None.
+        model_save_path (str, optional): Path to save the trained model weights. Defaults to None.
 
     Returns:
         list: A list of loss values recorded during training.
     """
 
-    dataset = MyDataset(root='D:\\Object detection\\CrowdHuman_train01\\Images',
-                        annotations_file='D:\\Object detection\\annotation_train.odgt',
+    dataset = MyDataset(root=root,
+                        annotations_file=annotations_file,
                         transforms=MyTransforms(train=True))
 
     data_loader_train = DataLoader(dataset,
@@ -61,7 +66,8 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
         lr_scheduler.step()  # Update the learning rate
         torch.cuda.empty_cache()  # Clean up any unneeded CUDA memory
 
-    torch.save(model.state_dict(), 'model_weights_final.pth')
+    # torch.save(model.state_dict(), 'model_weights_final.pth')
+    torch.save(model.state_dict(), model_save_path)
 
     return loss_values
 
@@ -107,5 +113,38 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
 
 
 if __name__ == "__main__":
-    loss_values = train_model()
+    # Define the argument parser
+    parser = argparse.ArgumentParser(description="Train an object detection model.")
+
+    # Adding arguments for the train_model function
+    parser.add_argument('--num_epochs', type=int, default=2, help='Number of epochs for training.')
+    parser.add_argument('--batch_size', type=int, default=2, help='Size of the batches during training.')
+    parser.add_argument('--lr', type=float, default=0.005, help='Learning rate.')
+    parser.add_argument('--momentum', type=float, default=0.9, help='Momentum for the optimizer.')
+    parser.add_argument('--weight_decay', type=float, default=0.0005, help='Weight decay for the optimizer.')
+    parser.add_argument('--step_size', type=int, default=3, help='Step size for the learning rate scheduler.')
+    parser.add_argument('--gamma', type=float, default=0.1, help='Gamma for the learning rate scheduler.')
+    parser.add_argument('--root', type=str, default='D:\\Object detection\\CrowdHuman_train01\\Images',
+                        help='Root path for images.')
+    parser.add_argument('--annotations_file', type=str, default='D:\\Object detection\\annotation_train.odgt',
+                        help='Path to annotations file.')
+    parser.add_argument('--model_save_path', type=str, default='model_weights_final.pth',
+                        help='Path to save the trained model weights.')
+
+    args = parser.parse_args()
+
+    # Using the parsed arguments in the train_model function
+    loss_values = train_model(
+        num_epochs=args.num_epochs,
+        batch_size=args.batch_size,
+        lr=args.lr,
+        momentum=args.momentum,
+        weight_decay=args.weight_decay,
+        step_size=args.step_size,
+        gamma=args.gamma,
+        root=args.root,
+        annotations_file=args.annotations_file,
+        model_save_path=args.model_save_path
+    )
+
     plot_loss(loss_values)
