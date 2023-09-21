@@ -1,11 +1,12 @@
+import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
 
-from dataset import *
-from mytransforms import *
-from show_sample import *
+from dataset import MyDataset
+from mytransforms import MyTransforms
+from show_sample import plot_loss
 
 
 def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay=0.0005, step_size=3, gamma=0.1):
