@@ -7,7 +7,7 @@ from torchvision.models.detection import fasterrcnn_resnet50_fpn
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 
 
-def init_resnet_50():
+def init_resnet_50(model_weights_final=None):
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
@@ -23,7 +23,7 @@ def init_resnet_50():
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
 
     model.to(device)
-    model.load_state_dict(torch.load('model_weights_final.pth', map_location=device))
+    model.load_state_dict(torch.load(model_weights_final, map_location=device))
 
     return model, device
 
@@ -55,14 +55,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Perform inference using an object detection model.")
 
     # Adding arguments for the model_inference function
-    parser.add_argument('--image_path', type=str, default='./Inference/test.jpg',
+    parser.add_argument('--image_path', type=str, default='../Inference/test.jpg',
                         help='Path to the image on which to perform inference.')
-
+    parser.add_argument('--model_weights_final', type=str, default='model_weights_final.pth',
+                        help='Name of the .pth file containing fine-tuned weights.')
 
     args = parser.parse_args()
 
     # Using the parsed arguments in the model_inference function
-    resnet_50, device = init_resnet_50()
+    resnet_50, device = init_resnet_50(model_weights_final=args.model_weights_final)
     model_inference(model=resnet_50,
                     device=device,
                     image_path=args.image_path)
