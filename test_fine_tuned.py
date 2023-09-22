@@ -49,9 +49,13 @@ def main(root=None, annotations_file=None, pretrained_weights_path=None, model_w
                              annotations_file=annotations_file,
                              transforms=MyTransforms(train=False))
 
-    data_loader_test = DataLoader(test_dataset, batch_size=2,
-                                  shuffle=True, num_workers=0,
-                                  collate_fn=lambda x: tuple(zip(*x)))
+    # Transforms a list of sample tuples into a tuple of lists for batching
+    collate_lambda = lambda x: tuple(zip(*x))
+    data_loader_test = DataLoader(test_dataset,
+                                  batch_size=2,
+                                  shuffle=True,
+                                  num_workers=0,
+                                  collate_fn=collate_lambda)
 
     # Number of classes and pre-trained weights path
     num_classes = 2  # 1 class (person) + background

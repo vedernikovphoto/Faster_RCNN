@@ -35,11 +35,13 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
                         annotations_file=annotations_file,
                         transforms=MyTransforms(train=True))
 
+    # Transforms a list of sample tuples into a tuple of lists for batching
+    collate_lambda = lambda x: tuple(zip(*x))
     data_loader_train = DataLoader(dataset,
                                    batch_size=batch_size,
                                    shuffle=True,
                                    num_workers=0,
-                                   collate_fn=lambda x: tuple(zip(*x)))
+                                   collate_fn=collate_lambda)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
