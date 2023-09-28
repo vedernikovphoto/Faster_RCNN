@@ -72,9 +72,9 @@ def plot_inference(image, prediction, score_threshold):
         if score < score_threshold:  # Skip predictions with low confidence
             continue
         if label == 1:  # person
-            color = 'red'
-        elif label == 2:  # head
             color = 'blue'
+        elif label == 2:  # head
+            color = 'red'
 
         draw.rectangle([(box[0], box[1]), (box[2], box[3])], outline=color, width=3)
         draw.text((box[0], box[1]),

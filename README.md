@@ -25,11 +25,9 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
 
 2. While not compulsory, a CUDA-capable GPU is recommended for faster inference. Without a GPU, the code will default to running on the CPU which will be slower.
 
-3. Download the [`model_weights_final.pth`](https://shorturl.at/eJTU6) for the fine-tuned model, which contains the model's trained weights.
+3. Download the [`model_weights_final.pth`](https://shorturl.at/juJL5) for the fine-tuned model, which contains the model's trained weights. Then place downloaded file in the same folder with `inference.py` file.
 
-4. Place downloaded `model_weights_final.pth` in the same folder with `inference.py`
-
-5. Download the weights for [`fasterrcnn_resnet50_fpn`](https://shorturl.at/hvHPW) model 
+5. Download the weights for [`fasterrcnn_resnet50_fpn`](https://shorturl.at/hvHPW) model. 
 
 6. Rename downloaded weights file to `fasterrcnn_resnet50_fpn_coco.pth` and place the it in the same folder with `inference.py` file.
 
@@ -52,7 +50,7 @@ Welcome to this repository! If you're eager to test the pre-trained model on you
     ```
 
 4. **View Results**:
-    Post execution, the image will be displayed with red outlined bounding boxes around detected objects.
+    The image will display detected humans with blue bounding boxes around them and red bounding boxes around their heads.
 
 Thank you for using this model! Feel free to raise any issues or contribute.
 
