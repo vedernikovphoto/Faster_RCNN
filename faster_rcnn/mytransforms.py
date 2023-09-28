@@ -2,17 +2,17 @@ from torchvision.transforms import functional as F
 
 
 class MyTransforms:
-    
+
     # train parameter indicates whether the transformations should be applied (applied if training)
     def __init__(self, train=True):
         self.train = train
-    
+
     def __call__(self, image, target):
         image = F.to_tensor(image)
 
         if self.train:
             image = F.hflip(image)  # Apply a horizontal flip to the image
-            target = self.flip_boxes(image, target)   # Adjust the bounding boxes of the target according to the flip
+            target = self.flip_boxes(image, target)  # Adjust the bounding boxes of the target according to the flip
 
         return image, target
 

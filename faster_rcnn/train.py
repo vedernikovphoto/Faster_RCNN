@@ -1,6 +1,7 @@
 import torch
 import argparse
 import torch.optim as optim
+
 from torch.utils.data import DataLoader
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
@@ -47,7 +48,7 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
 
     model = fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.COCO_V1)  # Load a pre-trained model
 
-    num_classes = 2  # 1 class (person) + background
+    num_classes = 3  # 2 classes (person, head) + background
 
     in_features = model.roi_heads.box_predictor.cls_score.in_features  # Number of input features for the classifier
 
@@ -68,7 +69,6 @@ def train_model(num_epochs=2, batch_size=2, lr=0.005, momentum=0.9, weight_decay
         lr_scheduler.step()  # Update the learning rate
         torch.cuda.empty_cache()  # Clean up any unneeded CUDA memory
 
-    # torch.save(model.state_dict(), 'model_weights_final.pth')
     torch.save(model.state_dict(), model_save_path)
 
     return loss_values

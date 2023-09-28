@@ -39,8 +39,14 @@ class MyDataset(torch.utils.data.Dataset):
 
             # Get the boxes and labels from the annotation
             gtboxes = annotation["gtboxes"]
-            boxes = [adjust_box_format(box["vbox"]) for box in gtboxes if box["tag"] == "person"]
-            labels = [1 for _ in boxes]
+
+            boxes_person = [adjust_box_format(box["vbox"]) for box in gtboxes if box["tag"] == "person"]
+            labels_person = [1 for _ in boxes_person]
+            boxes_head = [adjust_box_format(box["hbox"]) for box in gtboxes if box["tag"] == "person"]
+            labels_head = [2 for _ in boxes_head]
+
+            boxes = boxes_person + boxes_head
+            labels = labels_person + labels_head
 
             self.boxes.append(boxes)  # Append the bounding boxes for current image to the list of all bounding boxes
             self.labels.append(labels)  # Append the labels for the current image to the list of all labels
@@ -55,10 +61,7 @@ class MyDataset(torch.utils.data.Dataset):
         labels = torch.as_tensor(self.labels[idx], dtype=torch.int64)
 
         # Create a dictionary to store the details of the target object(s) in the current image
-        target = {}
-        target["boxes"] = boxes  # Store the bounding boxes tensor in the target dictionary
-        target["labels"] = labels  # Store the labels tensor in the target dictionary
-        target["image_id"] = torch.tensor([idx])  # Store index of the image in target dictionary
+        target = {"boxes": boxes, "labels": labels, "image_id": torch.tensor([idx])}
 
         if self.transforms is not None:
             img, target = self.transforms(img, target)

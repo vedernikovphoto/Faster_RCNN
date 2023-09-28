@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 
 from dataset import MyDataset
 from mytransforms import MyTransforms
-from show_sample import plot_predictions, plot_predictions_total
+from show_sample import plot_predictions
 from predict import predict
 
 
@@ -58,7 +58,7 @@ def main(root=None, annotations_file=None, pretrained_weights_path=None, model_w
                                   collate_fn=collate_lambda)
 
     # Number of classes and pre-trained weights path
-    num_classes = 2  # 1 class (person) + background
+    num_classes = 3  # 2 classes (person, head) + background
     pretrained_weights_path = pretrained_weights_path
 
     # Initialize and setup model
@@ -96,9 +96,6 @@ def main(root=None, annotations_file=None, pretrained_weights_path=None, model_w
                                                                             score_threshold=0.8)
     calculate_performance(model_raw, data_loader_test, device, "ResNet model")
     plot_predictions(test_images_raw, test_ground_truths_raw, test_predictions_raw)
-
-    # Plot the predictions from fine-tuned mode, ResNet model and ground truth
-    plot_predictions_total(test_images, test_ground_truths, test_predictions, test_predictions_raw)
 
 
 def calculate_performance(model, data_loader_test, device, model_description):
