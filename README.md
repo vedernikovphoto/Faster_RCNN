@@ -4,6 +4,8 @@
     <img src="example.jpg" alt="Alternative Text">
 </div>
 
+<br><br>
+
 Welcome to this repository! If you're eager to test the pre-trained model on your own image, follow the steps below:
 
 ## Prerequisites:
