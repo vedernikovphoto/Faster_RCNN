@@ -14,8 +14,8 @@ class MyDataset(torch.utils.data.Dataset):
         # Get list of all image files
         self.imgs = list(sorted(os.path.join(root, img_file) for img_file in os.listdir(root)))
 
-        # Load annotations from file
-        self.annotations = []
+        self.annotations = []  # List to store the annotations for each image in the dataset
+
         with open(annotations_file, 'r') as f:
             for line in f:
                 self.annotations.append(json.loads(line))  # Parse JSON line and add to list    
@@ -31,7 +31,7 @@ class MyDataset(torch.utils.data.Dataset):
         # Iterate over all images and store the annotations in the dataset object
         for img_file in self.imgs:
 
-            image_file_name = os.path.basename(img_file)
+            image_file_name = os.path.basename(img_file)  # Name without the preceding directory path
             image_file_name_wo_extension = os.path.splitext(image_file_name)[0]
 
             # Get the corresponding annotation for each image
