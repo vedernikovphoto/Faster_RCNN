@@ -1,8 +1,7 @@
 import torch
 import argparse
-import matplotlib.pyplot as plt
 
-from PIL import Image, ImageDraw
+from PIL import Image
 from torchvision.transforms.functional import to_tensor
 from torchvision.models.detection import fasterrcnn_resnet50_fpn
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
