@@ -150,5 +150,3 @@ if __name__ == "__main__":
     )
 
     plot_loss(loss_values)
-
-#     1-2-3 check
